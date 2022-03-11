@@ -6,7 +6,7 @@ import withRouter from "./common/withRouter";
 import cardsService from "../services/cardsService";
 import { toast } from "react-toastify";
 
-class CreateCard extends Form {
+class EditCard extends Form {
   state = {
     form: {
       bizName: "",
@@ -17,7 +17,33 @@ class CreateCard extends Form {
     },
   };
 
+  async componentDidMount() {
+    const cardId = this.props.params.id;
+
+    const { data } = await cardsService.getCardById(cardId);
+    this.setState({ form: this.mapToViewModel(data) });
+  }
+
+  mapToViewModel({
+    _id,
+    bizName,
+    bizDescription,
+    bizAddress,
+    bizPhoneNumber,
+    bizImage,
+  }) {
+    return {
+      _id,
+      bizName,
+      bizDescription,
+      bizAddress,
+      bizPhoneNumber,
+      bizImage,
+    };
+  }
+
   schema = {
+    _id: Joi.string().required(),
     bizName: Joi.string().min(2).max(255).required().label("Business Name"),
     bizDescription: Joi.string()
       .min(2)
@@ -35,17 +61,9 @@ class CreateCard extends Form {
   };
 
   async doSubmit() {
-    const {
-      form: { bizImage, ...body },
-    } = this.state;
-
-    if (bizImage) {
-      body.bizImage = bizImage;
-    }
-
     try {
-      await cardsService.createCard(body);
-      toast("A new card is opened!");
+      await cardsService.editCard(this.state.form);
+      toast("Card was update");
       this.props.navigate("/my-cards");
     } catch ({ response }) {
       if (response && response.status === 400) {
@@ -54,11 +72,15 @@ class CreateCard extends Form {
     }
   }
 
+  handleCancel = (e) => {
+    e.preventDefault();
+    this.props.navigate("/my-cards");
+  };
   render() {
     return (
       <>
         <div className="col-5 mx-auto mt-5 text-center">
-          <PageHeader title={"Create A New Card"} />
+          <PageHeader title="Edit your Card" />
         </div>
 
         <form
@@ -89,7 +111,14 @@ class CreateCard extends Form {
           })}
 
           <div className="d-flex justify-content-center mt-3">
-            {this.renderButton("Create Card")}
+            <button
+              onClick={this.handleCancel}
+              className="btn btn-secondary mx-3"
+            >
+              Cancel
+            </button>
+
+            {this.renderButton("Update")}
           </div>
         </form>
       </>
@@ -97,4 +126,4 @@ class CreateCard extends Form {
   }
 }
 
-export default withRouter(CreateCard);
+export default withRouter(EditCard);

@@ -28,7 +28,7 @@ const Card = ({
       </div>
 
       <div className="mt-2">
-        <Link to={`/create-card/edit/${_id}`}>
+        <Link to={`/my-cards/edit/${_id}`}>
           <button className="btn mx-3">Edit</button>
         </Link>
         <Link to={`/my-cards/delete/${_id}`}>

@@ -13,18 +13,20 @@ export function getCardById(id) {
   return httpService.get(`${config.apiUrl}/cards/${id}`);
 }
 
-export function editCard({ card, id }) {
-  return httpService.put(`${config.apiUrl}/${id}`, card);
+export function editCard({ _id, ...card }) {
+  return httpService.put(`${config.apiUrl}/cards/${_id}`, card);
 }
 
 export function deleteCard(id) {
-  return httpService.delete(`${config.apiUrl}/${id}`);
+  return httpService.delete(`${config.apiUrl}/cards/${id}`);
 }
 
 const cardsService = {
   createCard,
   getCards,
   getCardById,
+  editCard,
+  deleteCard,
 };
 
 export default cardsService;

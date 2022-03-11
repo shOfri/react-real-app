@@ -14,6 +14,8 @@ import BusinessSignUp from "./components/businessSignUp";
 import CreateCard from "./components/createCard";
 import ProtecredRoute from "./components/common/protectedRouter";
 import MyCards from "./components/myCards";
+import EditCard from "./components/editCard";
+import DeleteCard from "./components/deleteCard";
 
 class App extends Component {
   state = {};
@@ -43,6 +45,22 @@ class App extends Component {
               element={
                 <ProtecredRoute bizOnly>
                   <CreateCard />
+                </ProtecredRoute>
+              }
+            />
+            <Route
+              path="/my-cards/edit/:id"
+              element={
+                <ProtecredRoute bizOnly>
+                  <EditCard />
+                </ProtecredRoute>
+              }
+            />
+            <Route
+              path="/my-cards/delete/:id"
+              element={
+                <ProtecredRoute bizOnly>
+                  <DeleteCard />
                 </ProtecredRoute>
               }
             />
