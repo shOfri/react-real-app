@@ -27,6 +27,7 @@ class SignIn extends Form {
 
     try {
       await usersService.login(email, password);
+      toast("Welcome to Real-App!");
       window.location = "/";
     } catch ({ response }) {
       if (response && response.status === 400) {

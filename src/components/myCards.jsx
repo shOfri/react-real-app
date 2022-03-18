@@ -17,23 +17,25 @@ class MyCards extends Component {
   render() {
     const { cards } = this.state;
     return (
-      <div className="container">
-        <PageHeader title={"My Cards"} />
+      <>
+        <div className="container">
+          <PageHeader title={"My Cards"} />
 
-        <Link to="/create-card">
-          <button className="btn btn-sm btn-outline-secondary">
-            Create a new card
-          </button>
-        </Link>
+          <Link to="/create-card">
+            <button className="btn btn-sm btn-outline-secondary mb-3">
+              Create a new card
+            </button>
+          </Link>
 
-        <div className="row">
-          {cards.length ? (
-            cards.map((card) => <Card key={card._id} card={card} />)
-          ) : (
-            <p>No cards yet...</p>
-          )}
+          <div className="row d-flex justify-content-start">
+            {cards.length ? (
+              cards.map((card) => <Card key={card._id} card={card} />)
+            ) : (
+              <p>No cards yet...</p>
+            )}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

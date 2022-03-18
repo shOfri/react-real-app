@@ -20,19 +20,21 @@ import DeleteCard from "./components/deleteCard";
 class App extends Component {
   state = {};
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       user: usersService.getUser(),
+      loggedUser: await usersService.getLoggedUser(),
     });
   }
 
   render() {
-    const { user } = this.state;
+    const { user, loggedUser } = this.state;
+
     return (
       <div className="app d-flex flex-column min-vh-100">
         <ToastContainer />
         <header>
-          <Navbar user={user} />
+          <Navbar user={user} loggedUser={loggedUser} />
         </header>
 
         <main className="container flex-fill">
@@ -80,7 +82,7 @@ class App extends Component {
           </Routes>
         </main>
 
-        <footer>
+        <footer className="bg-dark text-light mt-5">
           <Footer />
         </footer>
       </div>

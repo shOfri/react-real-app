@@ -31,7 +31,7 @@ class CreateCard extends Form {
       .required()
       .regex(/^0[2-9]\d{7,8}$/)
       .label("Phone Number"),
-    bizImage: Joi.string().min(11).max(1024).label("Image").allow(""),
+    bizImage: Joi.string().uri().max(1024).label("Image").allow(""),
   };
 
   async doSubmit() {

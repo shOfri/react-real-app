@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, loggedUser }) => {
   return (
     <nav
       className="navbar navbar-expand navbar-dark bg-dark"
@@ -38,43 +38,63 @@ const Navbar = ({ user }) => {
               </li>
             )}
           </ul>
+          <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul className="navbar-nav ms-auto">
+              {user ? (
+                <>
+                  <li className="nav-item dropdown">
+                    <NavLink
+                      to="#"
+                      className="nav-link dropdown-toggle"
+                      id="navbarDarkDropdownMenuLink"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {loggedUser.email}
+                    </NavLink>
+                    <ul
+                      className="dropdown-menu dropdown-menu-dark"
+                      aria-labelledby="navbarDarkDropdownMenuLink"
+                    >
+                      <li>
+                        <NavLink
+                          className="dropdown-item"
+                          aria-current="page"
+                          to="/sign-out"
+                        >
+                          Sign Out
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/sign-in"
+                    >
+                      Sign In
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/sign-up">
+                      Sign Up
+                    </NavLink>
+                  </li>
 
-          <ul className="navbar-nav ms-auto">
-            {user ? (
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/sign-out"
-                >
-                  Sign Out
-                </NavLink>
-              </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link active"
-                    aria-current="page"
-                    to="/sign-in"
-                  >
-                    Sign In
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/sign-up">
-                    Sign Up
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="biz-signup">
-                    Business Sign Up
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="biz-signup">
+                      Business Sign Up
+                    </NavLink>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
